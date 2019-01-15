@@ -1,5 +1,7 @@
 <?php
+
 namespace airani\log;
+
 
 use yii\log\Target;
 use yii\base\InvalidConfigException;
@@ -37,6 +39,11 @@ class TelegramTarget extends Target
      * @var int|string
      */
     public $chatId;
+    /**
+     * Connect with proxy
+     * @var string
+     */
+    public $proxy;
 
     /**
      * Check required properties
@@ -57,12 +64,13 @@ class TelegramTarget extends Target
      */
     public function export()
     {
-        $bot = new TelegramBot(['token' => $this->botToken]);
+        /** @var mirkhamidov\TelegramNotifications $bot */
+        $bot = \Yii::$app->telegram;
 
         $messages = array_map([$this, 'formatMessage'], $this->messages);
 
         foreach ($messages as $message) {
-            $bot->sendMessage($this->chatId, $message);
+            $bot->sendMessage($message, $this->chatId);
         }
     }
 }

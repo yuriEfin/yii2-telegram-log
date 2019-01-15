@@ -1,5 +1,7 @@
 <?php
+
 namespace airani\log;
+
 
 use yii\base\Component;
 use yii\base\InvalidConfigException;
@@ -19,8 +21,15 @@ class TelegramBot extends Component
      * @var string
      */
     public $token;
-    
+
+    /**
+     * Connect with proxy
+     * @var string
+     */
+    public $proxy;
+
     private $_client;
+
 
     /**
      * Check required property
@@ -57,11 +66,8 @@ class TelegramBot extends Component
      * @link https://core.telegram.org/bots/api#sendmessage
      * return array
      */
-    public function sendMessage($chat_id, $text, $parse_mode = null, $disable_web_page_preview = null, $disable_notification = null, $reply_to_message_id = null, $reply_markup = null)
+    public function sendMessage($chat_id, $text)
     {
-        $response = $this->getClient()
-            ->post('sendMessage', compact('chat_id', 'text', 'parse_mode', 'disable_web_page_preview', 'disable_notification', 'reply_to_message_id', 'reply_markup'))
-            ->send();
-        return $response->data;
+        return ;
     }
 }
